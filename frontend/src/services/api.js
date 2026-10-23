@@ -15,13 +15,13 @@ export const axiosInstanceV4 = axios.create({
   withCredentials: true,
 });
 
-// Default rich demo profile (Codolio format)
+// Default demo profile configured with Priyanshu's verified profiles
 export const DEFAULT_DEMO_USER = {
   _id: "demo-user-101",
   fullName: "Priyanshu Kumar",
-  username: "priyanshu_dev",
+  username: "PriyanshuKumar425",
   email: "priyanshu@example.com",
-  bio: "Competitive Programmer & Full-Stack Engineer | Building scalable distributed systems | Knight @ LeetCode | Specialist @ Codeforces",
+  bio: "Competitive Programmer & Full-Stack Developer | MNNIT Allahabad | LeetCode Knight (1967) | Codeforces Specialist (1539) | CodeChef 3★ (1784) | AtCoder 4-Kyu (1276)",
   collegeName: "MNNIT Allahabad",
   avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
   socialLinks: {
@@ -31,46 +31,63 @@ export const DEFAULT_DEMO_USER = {
   },
   profileStats: {
     codeforces: {
-      handle: "priyanshu_01",
-      rating: 1542,
-      maxRating: 1620,
+      handle: "Happy_noob0",
+      rating: 1539,
+      maxRating: 1585,
       rank: "specialist",
-      maxRank: "expert",
-      problemsSolved: 486,
-      totalContests: 38,
+      maxRank: "specialist",
+      problemsSolved: 524,
+      totalContests: 44,
       verified: true,
       ratingHistory: [
         { contestName: "Codeforces Round 910 (Div. 2)", rating: 1240, timestamp: "2024-01-15T00:00:00.000Z" },
         { contestName: "Codeforces Round 915 (Div. 2)", rating: 1380, timestamp: "2024-03-20T00:00:00.000Z" },
         { contestName: "Educational Codeforces Round 163", rating: 1425, timestamp: "2024-05-10T00:00:00.000Z" },
         { contestName: "Codeforces Round 942 (Div. 2)", rating: 1490, timestamp: "2024-07-02T00:00:00.000Z" },
-        { contestName: "Codeforces Round 960 (Div. 2)", rating: 1542, timestamp: "2024-09-18T00:00:00.000Z" },
-        { contestName: "Codeforces Round 975 (Div. 2)", rating: 1620, timestamp: "2024-11-05T00:00:00.000Z" },
-        { contestName: "Codeforces Round 982 (Div. 2)", rating: 1542, timestamp: "2025-01-12T00:00:00.000Z" }
+        { contestName: "Codeforces Round 960 (Div. 2)", rating: 1515, timestamp: "2024-09-18T00:00:00.000Z" },
+        { contestName: "Codeforces Round 975 (Div. 2)", rating: 1585, timestamp: "2024-11-05T00:00:00.000Z" },
+        { contestName: "Codeforces Round 990 (Div. 2)", rating: 1539, timestamp: "2025-01-12T00:00:00.000Z" }
       ]
     },
     leetcode: {
-      username: "priyanshu_codes",
-      contestRating: 1892,
-      attendedContestsCount: 42,
-      globalRanking: 14205,
-      topPercentage: 5.4,
-      totalProblemsSolved: 642,
+      username: "PriyanshuKumar425",
+      contestRating: 1967,
+      attendedContestsCount: 46,
+      globalRanking: 9840,
+      topPercentage: 2.4,
+      totalProblemsSolved: 733,
       verified: true,
       submissionStats: {
-        easy: 235,
-        medium: 328,
-        hard: 79
+        easy: 260,
+        medium: 395,
+        hard: 78
       },
-      badges: ["Guardian Badge", "Knight 2024", "100 Days Streak", "Top 5% Contestant"],
+      badges: ["Knight", "Top 2.5% Contestant", "100 Days Streak"],
       ratingHistory: [
-        { contestName: "Weekly Contest 380", rating: 1590, timestamp: "2024-01-21T00:00:00.000Z" },
-        { contestName: "Weekly Contest 392", rating: 1680, timestamp: "2024-04-14T00:00:00.000Z" },
-        { contestName: "Biweekly Contest 129", rating: 1740, timestamp: "2024-06-08T00:00:00.000Z" },
-        { contestName: "Weekly Contest 405", rating: 1810, timestamp: "2024-08-25T00:00:00.000Z" },
-        { contestName: "Weekly Contest 416", rating: 1865, timestamp: "2024-10-30T00:00:00.000Z" },
-        { contestName: "Biweekly Contest 142", rating: 1892, timestamp: "2025-02-15T00:00:00.000Z" }
+        { contestName: "Weekly Contest 380", rating: 1650, timestamp: "2024-01-21T00:00:00.000Z" },
+        { contestName: "Weekly Contest 392", rating: 1740, timestamp: "2024-04-14T00:00:00.000Z" },
+        { contestName: "Biweekly Contest 129", rating: 1810, timestamp: "2024-06-08T00:00:00.000Z" },
+        { contestName: "Weekly Contest 405", rating: 1880, timestamp: "2024-08-25T00:00:00.000Z" },
+        { contestName: "Weekly Contest 416", rating: 1920, timestamp: "2024-10-30T00:00:00.000Z" },
+        { contestName: "Biweekly Contest 142", rating: 1967, timestamp: "2025-02-15T00:00:00.000Z" }
       ]
+    },
+    codechef: {
+      handle: "Priyanshu4425",
+      rating: 1784,
+      stars: "3★",
+      globalRank: 3420,
+      countryRank: 1210,
+      contests: 28,
+      verified: true
+    },
+    atcoder: {
+      handle: "Priyanshunoob",
+      rating: 1276,
+      rank: "4-Kyu",
+      maxRating: 1310,
+      contests: 19,
+      verified: true
     },
     github: {
       username: "PRIYANSHUMNNIT01",
@@ -79,15 +96,6 @@ export const DEFAULT_DEMO_USER = {
       stars: 42,
       contributionsLastYear: 418,
       verified: true
-    },
-    codechef: {
-      handle: "priyanshu_mnnit",
-      rating: 1765,
-      stars: "3★",
-      globalRank: 5210,
-      countryRank: 1840,
-      contests: 22,
-      verified: true
     }
   }
 };
@@ -95,8 +103,9 @@ export const DEFAULT_DEMO_USER = {
 // Local storage helpers
 export const getStoredProfile = () => {
   try {
-    const raw = localStorage.getItem("starkprep_profile");
+    const raw = localStorage.getItem("starkprep_profile_v3");
     if (raw) return JSON.parse(raw);
+    localStorage.setItem("starkprep_profile_v3", JSON.stringify(DEFAULT_DEMO_USER));
   } catch (e) {
     console.error("Failed to load stored profile:", e);
   }
@@ -105,7 +114,7 @@ export const getStoredProfile = () => {
 
 export const saveStoredProfile = (profile) => {
   try {
-    localStorage.setItem("starkprep_profile", JSON.stringify(profile));
+    localStorage.setItem("starkprep_profile_v3", JSON.stringify(profile));
   } catch (e) {
     console.error("Failed to save profile locally:", e);
   }

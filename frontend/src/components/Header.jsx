@@ -46,8 +46,8 @@ function Header() {
   };
 
   const navLinks = [
-    { name: "Portfolio", path: "/profile", icon: LayoutDashboard },
-    { name: "Contests", path: "/contest-tracker", icon: Trophy, badge: "Live" },
+    { name: "Dashboard", path: "/profile", icon: LayoutDashboard },
+    { name: "Live Contests", path: "/contest-tracker", icon: Trophy, badge: "Live" },
     { name: "DSA Sheets", path: "/sheets", icon: FileCode2 },
     { name: "Verify Handles", path: "/verify-handles", icon: CheckCircle2 },
   ];
@@ -55,20 +55,20 @@ function Header() {
   const isActive = (path) => location.pathname === path;
 
   return (
-    <header className="sticky top-0 z-50 w-full backdrop-blur-md bg-[#090D16]/90 border-b border-slate-800/80 transition-all">
+    <header className="sticky top-0 z-50 w-full backdrop-blur-md bg-[#080B11]/95 border-b border-slate-800 transition-all">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Brand Logo */}
           <Link to="/" className="flex items-center gap-2 group">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center shadow-lg shadow-purple-500/25 group-hover:scale-105 transition-transform">
-              <Sparkles className="w-5 h-5 text-white" />
+            <div className="w-9 h-9 rounded-xl bg-purple-600 flex items-center justify-center shadow-lg shadow-purple-600/25 group-hover:scale-105 transition-transform">
+              <Code2 className="w-5 h-5 text-white" />
             </div>
             <div className="flex flex-col">
-              <span className="text-xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-100 to-slate-400 bg-clip-text text-transparent">
+              <span className="text-xl font-extrabold tracking-tight text-white">
                 Stark<span className="text-purple-400">Prep</span>
               </span>
-              <span className="text-[10px] font-semibold text-purple-400/80 tracking-wider uppercase -mt-1 flex items-center gap-1">
-                Codolio Suite
+              <span className="text-[10px] font-semibold text-slate-400 tracking-wider uppercase -mt-1 flex items-center gap-1">
+                CP Tracker
               </span>
             </div>
           </Link>
@@ -84,7 +84,7 @@ function Header() {
                   to={item.path}
                   className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-sm font-medium transition-all relative ${
                     active
-                      ? "text-white bg-slate-800/80 shadow-sm border border-slate-700/60"
+                      ? "text-white bg-slate-800 shadow-sm border border-slate-700"
                       : "text-slate-400 hover:text-white hover:bg-slate-800/40"
                   }`}
                 >
@@ -100,8 +100,18 @@ function Header() {
             })}
           </nav>
 
-          {/* Right Section: Profile / Auth */}
+          {/* Right Section: GitHub repo + User Profile / Auth */}
           <div className="hidden md:flex items-center gap-3">
+            <a
+              href="https://github.com/PRIYANSHUMNNIT01/Strak-Prep"
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:text-white bg-slate-900 border border-slate-800 hover:border-slate-700 transition-all"
+              title="GitHub Repository"
+            >
+              <Github className="w-3.5 h-3.5" />
+              <span>GitHub</span>
+            </a>
 
             {/* User Dropdown */}
             <div className="relative" ref={dropdownRef}>

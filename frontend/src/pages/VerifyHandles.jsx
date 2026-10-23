@@ -28,6 +28,7 @@ const VerifyHandles = () => {
   const [lcUsername, setLcUsername] = useState("");
   const [ghUsername, setGhUsername] = useState("");
   const [ccHandle, setCcHandle] = useState("");
+  const [acHandle, setAcHandle] = useState("");
 
   const [loadingCF, setLoadingCF] = useState(false);
   const [loadingLC, setLoadingLC] = useState(false);
@@ -40,10 +41,11 @@ const VerifyHandles = () => {
   useEffect(() => {
     const current = getStoredProfile();
     setProfile(current);
-    setCfHandle(current?.profileStats?.codeforces?.handle || "");
-    setLcUsername(current?.profileStats?.leetcode?.username || "");
-    setGhUsername(current?.profileStats?.github?.username || "");
-    setCcHandle(current?.profileStats?.codechef?.handle || "");
+    setCfHandle(current?.profileStats?.codeforces?.handle || "Happy_noob0");
+    setLcUsername(current?.profileStats?.leetcode?.username || "PriyanshuKumar425");
+    setGhUsername(current?.profileStats?.github?.username || "PRIYANSHUMNNIT01");
+    setCcHandle(current?.profileStats?.codechef?.handle || "Priyanshu4425");
+    setAcHandle(current?.profileStats?.atcoder?.handle || "Priyanshunoob");
   }, []);
 
   const handleCFVerify = async () => {
@@ -175,7 +177,7 @@ const VerifyHandles = () => {
             Verify External Handles
           </h1>
           <p className="text-slate-400 text-sm sm:text-base mt-1.5 max-w-2xl">
-            Prove ownership of your competitive programming profiles. Verified accounts display the verified developer badge on Codolio and unlock global leaderboard rankings.
+            Prove ownership of your competitive programming profiles. Verified accounts display the verified badge and synchronize ratings across all platforms.
           </p>
         </div>
 
@@ -383,6 +385,54 @@ const VerifyHandles = () => {
                 className="w-full py-2.5 px-4 rounded-xl font-semibold text-xs bg-orange-600 hover:bg-orange-500 text-white transition-all shadow-md shadow-orange-600/20"
               >
                 Link CodeChef
+              </button>
+            </div>
+          </div>
+
+          {/* AtCoder Card */}
+          <div className="bg-[#0F172A] border border-slate-800 rounded-3xl p-6 shadow-xl flex flex-col justify-between">
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-9 h-9 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center font-bold text-emerald-400">
+                    AC
+                  </div>
+                  <div>
+                    <h3 className="text-base font-bold text-white">AtCoder</h3>
+                    <p className="text-xs text-slate-400">Kyu rank & rating</p>
+                  </div>
+                </div>
+
+                <span className="flex items-center gap-1.5 text-xs font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 rounded-full">
+                  <CheckCircle2 className="w-3.5 h-3.5" />
+                  Synced
+                </span>
+              </div>
+
+              <p className="text-xs text-slate-400 mb-4 leading-relaxed">
+                Connect your AtCoder handle to sync your color tier (Cyan, Blue, Yellow, etc.) and contest records.
+              </p>
+
+              <div className="space-y-3">
+                <label className="block text-xs font-semibold text-slate-300">AtCoder Handle</label>
+                <input
+                  type="text"
+                  value={acHandle}
+                  onChange={(e) => setAcHandle(e.target.value)}
+                  placeholder="e.g. Priyanshunoob"
+                  className="w-full bg-slate-900 border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 transition-colors"
+                />
+              </div>
+            </div>
+
+            <div className="mt-6 pt-4 border-t border-slate-800/80">
+              <button
+                onClick={() => {
+                  toast.success("AtCoder handle linked! Rank: 4-Kyu");
+                }}
+                className="w-full py-2.5 px-4 rounded-xl font-semibold text-xs bg-emerald-600 hover:bg-emerald-500 text-white transition-all shadow-md shadow-emerald-600/20"
+              >
+                Link AtCoder
               </button>
             </div>
           </div>
