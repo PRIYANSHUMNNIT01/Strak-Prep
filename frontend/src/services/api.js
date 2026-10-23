@@ -29,9 +29,6 @@ export const DEFAULT_DEMO_USER = {
     linkedin: "https://linkedin.com/in/priyanshu",
     twitter: "https://twitter.com/priyanshu"
   },
-  cScore: 842,
-  cScoreRank: "Master Coder",
-  cScorePercentile: 96.8,
   profileStats: {
     codeforces: {
       handle: "priyanshu_01",

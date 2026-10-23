@@ -100,18 +100,8 @@ function Header() {
             })}
           </nav>
 
-          {/* Right Section: C-Score Badge & Profile / Auth */}
+          {/* Right Section: Profile / Auth */}
           <div className="hidden md:flex items-center gap-3">
-            {/* C-Score Pill */}
-            <Link
-              to="/profile"
-              className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-gradient-to-r from-purple-500/10 via-indigo-500/10 to-pink-500/10 border border-purple-500/30 text-xs font-semibold text-purple-300 hover:border-purple-500/50 transition-all"
-              title="Your Codolio C-Score"
-            >
-              <Flame className="w-4 h-4 text-amber-400 fill-amber-400/20" />
-              <span>C-Score: <strong className="text-white">{user?.cScore || 842}</strong></span>
-              <span className="text-[10px] text-purple-400 font-bold px-1.5 py-0.2 rounded bg-purple-500/20">Master</span>
-            </Link>
 
             {/* User Dropdown */}
             <div className="relative" ref={dropdownRef}>

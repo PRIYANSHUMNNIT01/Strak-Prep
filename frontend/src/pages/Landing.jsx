@@ -29,28 +29,28 @@ function Landing() {
 
   const features = [
     {
-      icon: Flame,
-      title: "Codolio C-Score Engine",
-      description: "A holistic scoring algorithm that evaluates your DSA problem volume, contest ratings, and GitHub open-source contributions into a single developer rank.",
-      color: "text-amber-400 bg-amber-500/10 border-amber-500/20"
-    },
-    {
-      icon: Trophy,
-      title: "Live Contest Radar",
-      description: "Real-time calendar synced with Codeforces, LeetCode, CodeChef, and AtCoder with live countdowns, difficulty divisions, and one-click Google Calendar reminders.",
+      icon: Globe,
+      title: "Unified Multi-Platform Hub",
+      description: "Seamlessly view different coding profiles (LeetCode, Codeforces, CodeChef, GitHub) from one place. Switch handles and explore anyone's stats in real-time.",
       color: "text-purple-400 bg-purple-500/10 border-purple-500/20"
     },
     {
+      icon: Trophy,
+      title: "Contest Rating & Activity Graphs",
+      description: "Interactive rating progression charts across contests alongside 24-week submission heatmaps, current streaks, and historic milestones.",
+      color: "text-amber-400 bg-amber-500/10 border-amber-500/20"
+    },
+    {
       icon: FileCode2,
-      title: "Curated DSA Problem Sheets",
-      description: "Follow Striver's SDE Sheet and NeetCode 150 topic-by-topic. Save your progress, track revision notes, and never lose momentum.",
-      color: "text-indigo-400 bg-indigo-500/10 border-indigo-500/20"
+      title: "Total Coding Questions Aggregator",
+      description: "Track your grand total of solved DSA problems across platforms with instant breakdown by difficulty (Easy, Medium, Hard).",
+      color: "text-emerald-400 bg-emerald-500/10 border-emerald-500/20"
     },
     {
       icon: ShieldCheck,
-      title: "Verified Developer Resumes",
-      description: "Replace messy link dumps with a single verified, shareable developer card that recruiters can trust and explore in one click.",
-      color: "text-emerald-400 bg-emerald-500/10 border-emerald-500/20"
+      title: "Live Contest Radar & DSA Sheets",
+      description: "Real-time contest countdowns synced with LeetCode, Codeforces & CodeChef plus curated Striver SDE and NeetCode 150 practice sheets.",
+      color: "text-cyan-400 bg-cyan-500/10 border-cyan-500/20"
     }
   ];
 
@@ -80,7 +80,7 @@ function Landing() {
 
           {/* Subtitle */}
           <p className="mt-6 text-base sm:text-xl text-slate-400 max-w-2xl mx-auto font-normal leading-relaxed">
-            Consolidate your LeetCode, Codeforces, CodeChef, and GitHub accomplishments into a sleek, verified developer portfolio with C-Score rankings and contest schedules.
+            Consolidate your LeetCode, Codeforces, CodeChef, and GitHub accomplishments into a sleek, unified developer portfolio with total problems solved, contest rating graphs, and submission heatmaps.
           </p>
 
           {/* CTA Buttons */}
@@ -147,9 +147,9 @@ function Landing() {
 
               <div className="flex items-center gap-3">
                 <div className="bg-slate-800/80 px-4 py-2 rounded-xl border border-slate-700 text-xs">
-                  <span className="text-slate-400">Codolio C-Score: </span>
-                  <strong className="text-amber-400 text-sm">842</strong>
-                  <span className="text-[10px] text-purple-400 ml-1.5 font-bold">Master</span>
+                  <span className="text-slate-400">Total Solved: </span>
+                  <strong className="text-emerald-400 text-sm">1,128+</strong>
+                  <span className="text-[10px] text-purple-400 ml-1.5 font-bold">Across Platforms</span>
                 </div>
               </div>
             </div>
