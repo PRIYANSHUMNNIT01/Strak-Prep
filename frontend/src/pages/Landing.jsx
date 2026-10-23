@@ -20,11 +20,11 @@ import {
 
 function Landing() {
   const platforms = [
-    { name: "LeetCode", color: "from-amber-500/20 to-amber-500/5", border: "border-amber-500/30", text: "text-amber-400", meta: "Knight (1967)" },
-    { name: "Codeforces", color: "from-blue-500/20 to-blue-500/5", border: "border-blue-500/30", text: "text-blue-400", meta: "Specialist (1539)" },
-    { name: "CodeChef", color: "from-orange-500/20 to-orange-500/5", border: "border-orange-500/30", text: "text-orange-400", meta: "3-Star (1784)" },
-    { name: "AtCoder", color: "from-emerald-500/20 to-emerald-500/5", border: "border-emerald-500/30", text: "text-emerald-400", meta: "4-Kyu (1276)" },
-    { name: "GitHub", color: "from-slate-700/30 to-slate-800/10", border: "border-slate-700", text: "text-white", meta: "Open Source" },
+    { name: "LeetCode", color: "from-amber-500/20 to-amber-500/5", border: "border-amber-500/30", text: "text-amber-400", meta: "Knight (1967)", url: "https://leetcode.com/u/PriyanshuKumar425" },
+    { name: "Codeforces", color: "from-blue-500/20 to-blue-500/5", border: "border-blue-500/30", text: "text-blue-400", meta: "Specialist (1539)", url: "https://codeforces.com/profile/Happy_noob0" },
+    { name: "CodeChef", color: "from-orange-500/20 to-orange-500/5", border: "border-orange-500/30", text: "text-orange-400", meta: "3-Star (1784)", url: "https://www.codechef.com/users/Priyanshu4425" },
+    { name: "AtCoder", color: "from-emerald-500/20 to-emerald-500/5", border: "border-emerald-500/30", text: "text-emerald-400", meta: "4-Kyu (1276)", url: "https://atcoder.jp/users/Priyanshunoob" },
+    { name: "GitHub", color: "from-slate-700/30 to-slate-800/10", border: "border-slate-700", text: "text-white", meta: "Open Source", url: "https://github.com/PRIYANSHUMNNIT01" },
   ];
 
   const features = [
@@ -142,17 +142,22 @@ function Landing() {
           {/* Platform Strip */}
           <div className="mt-12 pt-8 border-t border-slate-800/80">
             <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-4">
-              Supported Platforms & Live Verification
+              Supported Platforms & Live Profiles (Click to Inspect)
             </p>
             <div className="flex flex-wrap items-center justify-center gap-3">
               {platforms.map((p) => (
-                <div
+                <a
                   key={p.name}
-                  className={`px-3.5 py-2 rounded-xl bg-[#0D121F] border ${p.border} ${p.text} text-xs font-bold shadow-sm flex items-center gap-2`}
+                  href={p.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={`px-3.5 py-2 rounded-xl bg-[#0D121F] hover:bg-slate-800 border ${p.border} ${p.text} text-xs font-bold shadow-sm flex items-center gap-2 transition-all hover:-translate-y-0.5`}
+                  title={`Open ${p.name} Profile`}
                 >
                   <span>{p.name}</span>
                   <span className="text-[10px] text-slate-400 font-normal">({p.meta})</span>
-                </div>
+                  <ExternalLink className="w-3 h-3 text-slate-400" />
+                </a>
               ))}
             </div>
           </div>
@@ -178,33 +183,53 @@ function Landing() {
               <div className="flex items-center gap-3">
                 <div className="bg-[#090D16] px-4 py-2 rounded-xl border border-slate-800 text-xs">
                   <span className="text-slate-400">Total Solved: </span>
-                  <strong className="text-emerald-400 text-sm font-black">1,585+</strong>
+                  <strong className="text-emerald-400 text-sm font-black">1,651+</strong>
                   <span className="text-[10px] text-slate-400 ml-1.5">Across 4 Platforms</span>
                 </div>
               </div>
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-6 text-xs">
-              <div className="bg-[#090D16] p-3.5 rounded-xl border border-slate-800">
+              <a
+                href="https://leetcode.com/u/PriyanshuKumar425"
+                target="_blank"
+                rel="noreferrer"
+                className="bg-[#090D16] hover:bg-slate-900 p-3.5 rounded-xl border border-slate-800 block transition-all"
+              >
                 <span className="text-slate-400 block mb-1">LeetCode</span>
                 <span className="text-base font-bold text-white">Knight (1967)</span>
-                <span className="text-[11px] text-amber-400 block mt-0.5">733 Solved • Top 2.4%</span>
-              </div>
-              <div className="bg-[#090D16] p-3.5 rounded-xl border border-slate-800">
+                <span className="text-[11px] text-amber-400 block mt-0.5">1,362 Solved • Top 3.16%</span>
+              </a>
+              <a
+                href="https://codeforces.com/profile/Happy_noob0"
+                target="_blank"
+                rel="noreferrer"
+                className="bg-[#090D16] hover:bg-slate-900 p-3.5 rounded-xl border border-slate-800 block transition-all"
+              >
                 <span className="text-slate-400 block mb-1">Codeforces</span>
                 <span className="text-base font-bold text-white">Specialist (1539)</span>
-                <span className="text-[11px] text-blue-400 block mt-0.5">524 Solved • 44 Contests</span>
-              </div>
-              <div className="bg-[#090D16] p-3.5 rounded-xl border border-slate-800">
+                <span className="text-[11px] text-blue-400 block mt-0.5">160 Solved • 18 Contests</span>
+              </a>
+              <a
+                href="https://www.codechef.com/users/Priyanshu4425"
+                target="_blank"
+                rel="noreferrer"
+                className="bg-[#090D16] hover:bg-slate-900 p-3.5 rounded-xl border border-slate-800 block transition-all"
+              >
                 <span className="text-slate-400 block mb-1">CodeChef</span>
                 <span className="text-base font-bold text-white">3-Star (1784)</span>
-                <span className="text-[11px] text-orange-400 block mt-0.5">28 Contests • Div 2</span>
-              </div>
-              <div className="bg-[#090D16] p-3.5 rounded-xl border border-slate-800">
+                <span className="text-[11px] text-orange-400 block mt-0.5">70 Solved • 16 Contests</span>
+              </a>
+              <a
+                href="https://atcoder.jp/users/Priyanshunoob"
+                target="_blank"
+                rel="noreferrer"
+                className="bg-[#090D16] hover:bg-slate-900 p-3.5 rounded-xl border border-slate-800 block transition-all"
+              >
                 <span className="text-slate-400 block mb-1">AtCoder</span>
                 <span className="text-base font-bold text-white">4-Kyu (1276)</span>
-                <span className="text-[11px] text-emerald-400 block mt-0.5">Cyan Rank • 19 Contests</span>
-              </div>
+                <span className="text-[11px] text-emerald-400 block mt-0.5">59 Solved • 9 Matches</span>
+              </a>
             </div>
           </div>
         </div>

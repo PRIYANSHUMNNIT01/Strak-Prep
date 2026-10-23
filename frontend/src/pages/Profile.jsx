@@ -155,16 +155,16 @@ function Profile() {
 
   const cfRankBadge = getCodeforcesTitle(cfStats.rating || 1539);
 
-  // Total Coding Questions Calculation
-  const lcSolved = lcStats.totalProblemsSolved || 733;
-  const cfSolved = cfStats.problemsSolved || 524;
-  const ccSolved = ccStats.contests ? ccStats.contests * 6 : 186;
-  const acSolved = acStats.contests ? acStats.contests * 7 : 142;
+  // Total Coding Questions Calculation with verified numbers
+  const lcSolved = lcStats.totalProblemsSolved || 1362;
+  const cfSolved = cfStats.problemsSolved || 160;
+  const ccSolved = ccStats.problemsSolved || 70;
+  const acSolved = acStats.problemsSolved || 59;
   const totalQuestions = lcSolved + cfSolved + ccSolved + acSolved;
 
-  const lcEasy = lcStats.submissionStats?.easy || 260;
-  const lcMed = lcStats.submissionStats?.medium || 395;
-  const lcHard = lcStats.submissionStats?.hard || 78;
+  const lcEasy = lcStats.submissionStats?.easy || 294;
+  const lcMed = lcStats.submissionStats?.medium || 832;
+  const lcHard = lcStats.submissionStats?.hard || 236;
 
   // Rating history datasets
   const cfRatingData = (cfStats.ratingHistory || []).map((entry) => ({
@@ -603,16 +603,16 @@ function Profile() {
                     <strong className="text-amber-400 font-bold">{lcStats.contestRating || 1967}</strong>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-slate-400">Solved:</span>
+                    <span className="text-slate-400">Problems Solved:</span>
                     <strong className="text-white font-bold">{lcSolved}</strong>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-slate-400">Global Rank:</span>
-                    <strong className="text-slate-300">Top {lcStats.topPercentage || 2.4}%</strong>
+                    <strong className="text-slate-300">Top {lcStats.topPercentage || 3.16}% ({lcStats.globalRanking || 27148})</strong>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-slate-400">Contests:</span>
-                    <strong className="text-slate-300">{lcStats.attendedContestsCount || 46}</strong>
+                    <span className="text-slate-400">Contests Attended:</span>
+                    <strong className="text-slate-300">{lcStats.attendedContestsCount || 28}</strong>
                   </div>
                 </div>
               </div>
@@ -705,16 +705,16 @@ function Profile() {
                     <strong className="text-orange-400 font-bold">{ccStats.rating || 1784}</strong>
                   </div>
                   <div className="flex justify-between items-center">
+                    <span className="text-slate-400">Problems Solved:</span>
+                    <strong className="text-white font-bold">{ccSolved}</strong>
+                  </div>
+                  <div className="flex justify-between items-center">
                     <span className="text-slate-400">Division:</span>
                     <strong className="text-amber-400 font-bold">3-Star (Div 2)</strong>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-slate-400">Global Rank:</span>
-                    <strong className="text-white">{ccStats.globalRank || 3420}</strong>
-                  </div>
-                  <div className="flex justify-between items-center">
                     <span className="text-slate-400">Contests:</span>
-                    <strong className="text-slate-300">{ccStats.contests || 28}</strong>
+                    <strong className="text-slate-300">{ccStats.contests || 16}</strong>
                   </div>
                 </div>
               </div>
@@ -756,16 +756,16 @@ function Profile() {
                     <strong className="text-emerald-400 font-bold">{acStats.rating || 1276}</strong>
                   </div>
                   <div className="flex justify-between items-center">
+                    <span className="text-slate-400">Problems Solved:</span>
+                    <strong className="text-white font-bold">{acSolved}</strong>
+                  </div>
+                  <div className="flex justify-between items-center">
                     <span className="text-slate-400">Rank:</span>
                     <strong className="text-cyan-400 font-bold">4-Kyu (Cyan)</strong>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-slate-400">Max Rating:</span>
-                    <strong className="text-white">{acStats.maxRating || 1310}</strong>
-                  </div>
-                  <div className="flex justify-between items-center">
                     <span className="text-slate-400">Contests:</span>
-                    <strong className="text-slate-300">{acStats.contests || 19}</strong>
+                    <strong className="text-slate-300">{acStats.contests || 9}</strong>
                   </div>
                 </div>
               </div>

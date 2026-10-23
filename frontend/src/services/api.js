@@ -15,7 +15,7 @@ export const axiosInstanceV4 = axios.create({
   withCredentials: true,
 });
 
-// Default demo profile configured with Priyanshu's verified profiles
+// Default demo profile configured with Priyanshu's verified profiles & exact stats
 export const DEFAULT_DEMO_USER = {
   _id: "demo-user-101",
   fullName: "Priyanshu Kumar",
@@ -23,21 +23,19 @@ export const DEFAULT_DEMO_USER = {
   email: "priyanshu@example.com",
   bio: "Competitive Programmer & Full-Stack Developer | MNNIT Allahabad | LeetCode Knight (1967) | Codeforces Specialist (1539) | CodeChef 3★ (1784) | AtCoder 4-Kyu (1276)",
   collegeName: "MNNIT Allahabad",
-  avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+  avatar: "https://userpic.codeforces.org/4404044/avatar/ebdf557eb09b8379.jpg",
   socialLinks: {
-    github: "https://github.com/PRIYANSHUMNNIT01",
-    linkedin: "https://linkedin.com/in/priyanshu",
-    twitter: "https://twitter.com/priyanshu"
+    github: "https://github.com/PRIYANSHUMNNIT01"
   },
   profileStats: {
     codeforces: {
       handle: "Happy_noob0",
       rating: 1539,
-      maxRating: 1585,
+      maxRating: 1539,
       rank: "specialist",
       maxRank: "specialist",
-      problemsSolved: 524,
-      totalContests: 44,
+      problemsSolved: 160,
+      totalContests: 18,
       verified: true,
       ratingHistory: [
         { contestName: "Codeforces Round 910 (Div. 2)", rating: 1240, timestamp: "2024-01-15T00:00:00.000Z" },
@@ -45,24 +43,23 @@ export const DEFAULT_DEMO_USER = {
         { contestName: "Educational Codeforces Round 163", rating: 1425, timestamp: "2024-05-10T00:00:00.000Z" },
         { contestName: "Codeforces Round 942 (Div. 2)", rating: 1490, timestamp: "2024-07-02T00:00:00.000Z" },
         { contestName: "Codeforces Round 960 (Div. 2)", rating: 1515, timestamp: "2024-09-18T00:00:00.000Z" },
-        { contestName: "Codeforces Round 975 (Div. 2)", rating: 1585, timestamp: "2024-11-05T00:00:00.000Z" },
-        { contestName: "Codeforces Round 990 (Div. 2)", rating: 1539, timestamp: "2025-01-12T00:00:00.000Z" }
+        { contestName: "Codeforces Round 975 (Div. 2)", rating: 1539, timestamp: "2024-11-05T00:00:00.000Z" }
       ]
     },
     leetcode: {
       username: "PriyanshuKumar425",
       contestRating: 1967,
-      attendedContestsCount: 46,
-      globalRanking: 9840,
-      topPercentage: 2.4,
-      totalProblemsSolved: 733,
+      attendedContestsCount: 28,
+      globalRanking: 27148,
+      topPercentage: 3.16,
+      totalProblemsSolved: 1362,
       verified: true,
       submissionStats: {
-        easy: 260,
-        medium: 395,
-        hard: 78
+        easy: 294,
+        medium: 832,
+        hard: 236
       },
-      badges: ["Knight", "Top 2.5% Contestant", "100 Days Streak"],
+      badges: ["Knight", "Top 3.16% Contestant"],
       ratingHistory: [
         { contestName: "Weekly Contest 380", rating: 1650, timestamp: "2024-01-21T00:00:00.000Z" },
         { contestName: "Weekly Contest 392", rating: 1740, timestamp: "2024-04-14T00:00:00.000Z" },
@@ -78,15 +75,17 @@ export const DEFAULT_DEMO_USER = {
       stars: "3★",
       globalRank: 3420,
       countryRank: 1210,
-      contests: 28,
+      problemsSolved: 70,
+      contests: 16,
       verified: true
     },
     atcoder: {
       handle: "Priyanshunoob",
       rating: 1276,
       rank: "4-Kyu",
-      maxRating: 1310,
-      contests: 19,
+      maxRating: 1288,
+      problemsSolved: 59,
+      contests: 9,
       verified: true
     },
     github: {
@@ -103,9 +102,9 @@ export const DEFAULT_DEMO_USER = {
 // Local storage helpers
 export const getStoredProfile = () => {
   try {
-    const raw = localStorage.getItem("starkprep_profile_v3");
+    const raw = localStorage.getItem("starkprep_profile_v4");
     if (raw) return JSON.parse(raw);
-    localStorage.setItem("starkprep_profile_v3", JSON.stringify(DEFAULT_DEMO_USER));
+    localStorage.setItem("starkprep_profile_v4", JSON.stringify(DEFAULT_DEMO_USER));
   } catch (e) {
     console.error("Failed to load stored profile:", e);
   }
@@ -114,7 +113,7 @@ export const getStoredProfile = () => {
 
 export const saveStoredProfile = (profile) => {
   try {
-    localStorage.setItem("starkprep_profile_v3", JSON.stringify(profile));
+    localStorage.setItem("starkprep_profile_v4", JSON.stringify(profile));
   } catch (e) {
     console.error("Failed to save profile locally:", e);
   }
