@@ -13,7 +13,9 @@ import {
   ExternalLink,
   Sparkles,
   Flame,
-  ChevronDown
+  ChevronDown,
+  Code2,
+  Github
 } from "lucide-react";
 import { getStoredProfile } from "../services/api";
 
