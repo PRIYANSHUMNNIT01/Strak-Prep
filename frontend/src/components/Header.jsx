@@ -1,27 +1,259 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect, useRef } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import {
+  Trophy,
+  LayoutDashboard,
+  FileCode2,
+  CheckCircle2,
+  Search,
+  Menu,
+  X,
+  User,
+  LogOut,
+  ExternalLink,
+  Sparkles,
+  Flame,
+  ChevronDown
+} from "lucide-react";
+import { getStoredProfile } from "../services/api";
 
 function Header() {
-  return (
-    <header className="fixed top-0 left-0 w-full h-16 bg-gray-950 shadow-sm z-50">
-        <div className='flex justify-between items-center h-full w-full px-4'>
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
-          <div className='text-xl font-semibold text-amber-300'>
-            StarkPrep
+  const user = getStoredProfile();
+  const isLoggedIn = !!localStorage.getItem("starkprep_auth") || !!localStorage.getItem("token");
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setProfileDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("starkprep_auth");
+    localStorage.removeItem("token");
+    setProfileDropdownOpen(false);
+    navigate("/login");
+  };
+
+  const navLinks = [
+    { name: "Portfolio", path: "/profile", icon: LayoutDashboard },
+    { name: "Contests", path: "/contest-tracker", icon: Trophy, badge: "Live" },
+    { name: "DSA Sheets", path: "/sheets", icon: FileCode2 },
+    { name: "Verify Handles", path: "/verify-handles", icon: CheckCircle2 },
+  ];
+
+  const isActive = (path) => location.pathname === path;
+
+  return (
+    <header className="sticky top-0 z-50 w-full backdrop-blur-md bg-[#090D16]/90 border-b border-slate-800/80 transition-all">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          {/* Brand Logo */}
+          <Link to="/" className="flex items-center gap-2 group">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center shadow-lg shadow-purple-500/25 group-hover:scale-105 transition-transform">
+              <Sparkles className="w-5 h-5 text-white" />
+            </div>
+            <div className="flex flex-col">
+              <span className="text-xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-100 to-slate-400 bg-clip-text text-transparent">
+                Stark<span className="text-purple-400">Prep</span>
+              </span>
+              <span className="text-[10px] font-semibold text-purple-400/80 tracking-wider uppercase -mt-1 flex items-center gap-1">
+                Codolio Suite
+              </span>
+            </div>
+          </Link>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-1">
+            {navLinks.map((item) => {
+              const Icon = item.icon;
+              const active = isActive(item.path);
+              return (
+                <Link
+                  key={item.name}
+                  to={item.path}
+                  className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-sm font-medium transition-all relative ${
+                    active
+                      ? "text-white bg-slate-800/80 shadow-sm border border-slate-700/60"
+                      : "text-slate-400 hover:text-white hover:bg-slate-800/40"
+                  }`}
+                >
+                  <Icon className={`w-4 h-4 ${active ? "text-purple-400" : "text-slate-400"}`} />
+                  <span>{item.name}</span>
+                  {item.badge && (
+                    <span className="ml-1 px-1.5 py-0.5 text-[10px] font-bold rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                      {item.badge}
+                    </span>
+                  )}
+                </Link>
+              );
+            })}
+          </nav>
+
+          {/* Right Section: C-Score Badge & Profile / Auth */}
+          <div className="hidden md:flex items-center gap-3">
+            {/* C-Score Pill */}
+            <Link
+              to="/profile"
+              className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-gradient-to-r from-purple-500/10 via-indigo-500/10 to-pink-500/10 border border-purple-500/30 text-xs font-semibold text-purple-300 hover:border-purple-500/50 transition-all"
+              title="Your Codolio C-Score"
+            >
+              <Flame className="w-4 h-4 text-amber-400 fill-amber-400/20" />
+              <span>C-Score: <strong className="text-white">{user?.cScore || 842}</strong></span>
+              <span className="text-[10px] text-purple-400 font-bold px-1.5 py-0.2 rounded bg-purple-500/20">Master</span>
+            </Link>
+
+            {/* User Dropdown */}
+            <div className="relative" ref={dropdownRef}>
+              <button
+                onClick={() => setProfileDropdownOpen((prev) => !prev)}
+                className="flex items-center gap-2 p-1.5 rounded-xl hover:bg-slate-800/60 border border-transparent hover:border-slate-700 transition-all"
+              >
+                <img
+                  src={user?.avatar || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80"}
+                  alt="avatar"
+                  className="w-8 h-8 rounded-lg object-cover ring-2 ring-purple-500/30"
+                />
+                <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
+              </button>
+
+              {profileDropdownOpen && (
+                <div className="absolute right-0 mt-2 w-56 rounded-2xl bg-[#0F172A] border border-slate-800 shadow-2xl py-2 z-50 text-sm">
+                  <div className="px-4 py-2 border-b border-slate-800/80">
+                    <p className="font-semibold text-white">{user?.fullName || "Priyanshu Kumar"}</p>
+                    <p className="text-xs text-slate-400 truncate">@{user?.profileStats?.codeforces?.handle || "priyanshu_dev"}</p>
+                  </div>
+                  <Link
+                    to="/profile"
+                    onClick={() => setProfileDropdownOpen(false)}
+                    className="flex items-center gap-2 px-4 py-2 text-slate-300 hover:bg-slate-800/60 hover:text-white"
+                  >
+                    <User className="w-4 h-4 text-purple-400" />
+                    <span>My Portfolio</span>
+                  </Link>
+                  <Link
+                    to="/sheets"
+                    onClick={() => setProfileDropdownOpen(false)}
+                    className="flex items-center gap-2 px-4 py-2 text-slate-300 hover:bg-slate-800/60 hover:text-white"
+                  >
+                    <FileCode2 className="w-4 h-4 text-indigo-400" />
+                    <span>DSA Sheets</span>
+                  </Link>
+                  <Link
+                    to="/verify-handles"
+                    onClick={() => setProfileDropdownOpen(false)}
+                    className="flex items-center gap-2 px-4 py-2 text-slate-300 hover:bg-slate-800/60 hover:text-white"
+                  >
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                    <span>Verify Handles</span>
+                  </Link>
+                  <Link
+                    to="/edit-profile"
+                    onClick={() => setProfileDropdownOpen(false)}
+                    className="flex items-center gap-2 px-4 py-2 text-slate-300 hover:bg-slate-800/60 hover:text-white"
+                  >
+                    <ExternalLink className="w-4 h-4 text-amber-400" />
+                    <span>Edit Profile</span>
+                  </Link>
+                  <div className="border-t border-slate-800/80 my-1"></div>
+                  <button
+                    onClick={handleLogout}
+                    className="w-full flex items-center gap-2 px-4 py-2 text-rose-400 hover:bg-rose-500/10 transition-colors text-left"
+                  >
+                    <LogOut className="w-4 h-4" />
+                    <span>Logout</span>
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {!isLoggedIn && (
+              <div className="flex items-center gap-2">
+                <Link
+                  to="/login"
+                  className="px-3.5 py-1.5 rounded-lg text-sm font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition-all"
+                >
+                  Login
+                </Link>
+                <Link
+                  to="/register"
+                  className="px-3.5 py-1.5 rounded-lg text-sm font-semibold text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 shadow-md shadow-purple-500/20 transition-all"
+                >
+                  Join Free
+                </Link>
+              </div>
+            )}
           </div>
 
-          <div className='text-black font-semibold text-lg'>
-            <button className='rounded-3xl bg-amber-300 hover:bg-amber-400 px-3'>
-              <Link to="/login">
-                Login
-              </Link>             
-                
+          {/* Mobile Menu Button */}
+          <div className="flex md:hidden items-center gap-2">
+            <button
+              onClick={() => setMobileMenuOpen((prev) => !prev)}
+              className="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800"
+            >
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
-
         </div>
+      </div>
+
+      {/* Mobile Drawer */}
+      {mobileMenuOpen && (
+        <div className="md:hidden border-b border-slate-800 bg-[#090D16] px-4 pt-2 pb-4 space-y-1">
+          {navLinks.map((item) => {
+            const Icon = item.icon;
+            const active = isActive(item.path);
+            return (
+              <Link
+                key={item.name}
+                to={item.path}
+                onClick={() => setMobileMenuOpen(false)}
+                className={`flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium ${
+                  active ? "text-white bg-slate-800 border border-slate-700" : "text-slate-300 hover:bg-slate-800/50"
+                }`}
+              >
+                <div className="flex items-center gap-2.5">
+                  <Icon className="w-4 h-4 text-purple-400" />
+                  <span>{item.name}</span>
+                </div>
+                {item.badge && (
+                  <span className="px-1.5 py-0.5 text-[10px] font-bold rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                    {item.badge}
+                  </span>
+                )}
+              </Link>
+            );
+          })}
+          <div className="pt-2 border-t border-slate-800 flex gap-2">
+            <Link
+              to="/login"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex-1 text-center py-2 text-sm rounded-lg border border-slate-700 text-slate-300"
+            >
+              Login
+            </Link>
+            <Link
+              to="/register"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex-1 text-center py-2 text-sm rounded-lg bg-purple-600 text-white font-medium"
+            >
+              Register
+            </Link>
+          </div>
+        </div>
+      )}
     </header>
-  )
+  );
 }
 
-export default Header
+export default Header;

@@ -1,121 +1,207 @@
-import { useState, useEffect } from 'react';
-import { fetchCurrentUser, updateProfile } from '../services/api';
-import DashBoard from '../components/DashBoard';
+import React, { useState, useEffect } from "react";
+import { fetchCurrentUser, updateProfile, getStoredProfile, saveStoredProfile } from "../services/api";
+import Header from "../components/Header";
+import toast, { Toaster } from "react-hot-toast";
+import { User, Building2, FileText, Image, ArrowLeft, Check, Sparkles, Github, Linkedin, Twitter } from "lucide-react";
+import { useNavigate, Link } from "react-router-dom";
 
 function EditProfile() {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
-    fullName: '',
-    bio: '',
-    collegeName: '',
+    fullName: "",
+    bio: "",
+    collegeName: "",
+    github: "",
+    linkedin: "",
+    twitter: "",
+    avatar: ""
   });
-  const [avatar, setAvatar] = useState(null);
-  const [preview, setPreview] = useState('');
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const fetchUser = async () => {
-      const user = await fetchCurrentUser();
-      setForm({
-        fullName: user.fullName || '',
-        bio: user.bio || '',
-        collegeName: user.collegeName || '',
-      });
-      setPreview(user.avatar || '');
-    };
-    fetchUser();
+    const user = getStoredProfile();
+    setForm({
+      fullName: user.fullName || "",
+      bio: user.bio || "",
+      collegeName: user.collegeName || "",
+      github: user.socialLinks?.github || "",
+      linkedin: user.socialLinks?.linkedin || "",
+      twitter: user.socialLinks?.twitter || "",
+      avatar: user.avatar || ""
+    });
   }, []);
 
   const handleChange = (e) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    setAvatar(file);
-    setPreview(URL.createObjectURL(file));
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const data = new FormData();
-    data.append('fullName', form.fullName);
-    data.append('bio', form.bio);
-    data.append('collegeName', form.collegeName);
-    if (avatar) data.append('avatar', avatar);
+    setLoading(true);
 
-    try {
-      await updateProfile(data);
-      alert('Profile updated!');
-    } catch (err) {
-      console.error(err);
-      alert('Update failed!');
-    }
+    const current = getStoredProfile();
+    const updated = {
+      ...current,
+      fullName: form.fullName,
+      bio: form.bio,
+      collegeName: form.collegeName,
+      avatar: form.avatar || current.avatar,
+      socialLinks: {
+        github: form.github,
+        linkedin: form.linkedin,
+        twitter: form.twitter
+      }
+    };
+
+    saveStoredProfile(updated);
+    toast.success("Profile updated successfully! ✨");
+    setTimeout(() => navigate("/profile"), 700);
+    setLoading(false);
   };
 
   return (
-    <div className='min-h-screen p-4 bg-black text-white'>
+    <div className="min-h-screen bg-[#090D16] text-white pb-16">
+      <Toaster position="top-right" />
+      <Header />
 
-    <div className='h-16'>
-        <DashBoard/>
-    </div>    
-
-      <h1 className='text-3xl text-center mb-6'>Edit Your Profile</h1>
-
-      <form onSubmit={handleSubmit} className='max-w-xl mx-auto bg-gray-900 p-6 rounded-2xl shadow-lg space-y-4'>
-        
-        <div className='text-center'>
-          <img
-            src={preview}
-            alt="Avatar Preview"
-            className='w-24 h-24 rounded-full object-cover mx-auto mb-2 border border-gray-700'
-          />
-          <input
-            type='file'
-            accept='image/*'
-            onChange={handleImageChange}
-            className='w-full text-gray-300'
-          />
+      <main className="max-w-2xl mx-auto px-4 sm:px-6 pt-8">
+        <div className="flex items-center justify-between mb-8 pb-4 border-b border-slate-800">
+          <div>
+            <Link
+              to="/profile"
+              className="inline-flex items-center gap-1.5 text-xs text-purple-400 hover:text-purple-300 font-semibold mb-2"
+            >
+              <ArrowLeft className="w-3.5 h-3.5" />
+              <span>Back to Portfolio</span>
+            </Link>
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-white">Edit Developer Profile</h1>
+          </div>
         </div>
 
-        <div>
-          <label className='block mb-1'>Full Name</label>
-          <input
-            type='text'
-            name='fullName'
-            value={form.fullName}
-            onChange={handleChange}
-            className='w-full p-2 rounded bg-gray-800 text-white'
-          />
-        </div>
+        <div className="bg-[#0F172A] border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl">
+          <form onSubmit={handleSubmit} className="space-y-5">
+            <div>
+              <label className="block text-xs font-semibold text-slate-300 mb-1.5">Full Name</label>
+              <div className="relative">
+                <User className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500" />
+                <input
+                  type="text"
+                  name="fullName"
+                  value={form.fullName}
+                  onChange={handleChange}
+                  required
+                  className="w-full bg-slate-900 border border-slate-800 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500 transition-colors"
+                />
+              </div>
+            </div>
 
-        <div>
-          <label className='block mb-1'>College Name</label>
-          <input
-            type='text'
-            name='collegeName'
-            value={form.collegeName}
-            onChange={handleChange}
-            className='w-full p-2 rounded bg-gray-800 text-white'
-          />
-        </div>
+            <div>
+              <label className="block text-xs font-semibold text-slate-300 mb-1.5">College / Organization</label>
+              <div className="relative">
+                <Building2 className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500" />
+                <input
+                  type="text"
+                  name="collegeName"
+                  value={form.collegeName}
+                  onChange={handleChange}
+                  className="w-full bg-slate-900 border border-slate-800 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500 transition-colors"
+                />
+              </div>
+            </div>
 
-        <div>
-          <label className='block mb-1'>Bio</label>
-          <textarea
-            name='bio'
-            rows='4'
-            value={form.bio}
-            onChange={handleChange}
-            className='w-full p-2 rounded bg-gray-800 text-white'
-          />
-        </div>
+            <div>
+              <label className="block text-xs font-semibold text-slate-300 mb-1.5">Professional Bio</label>
+              <div className="relative">
+                <textarea
+                  name="bio"
+                  rows={3}
+                  value={form.bio}
+                  onChange={handleChange}
+                  placeholder="Tell recruiters and peers about your skills, focus areas, and achievements..."
+                  className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-purple-500 transition-colors"
+                ></textarea>
+              </div>
+            </div>
 
-        <button
-          type='submit'
-          className='w-full py-2 bg-purple-700 hover:bg-purple-800 rounded text-white font-semibold'
-        >
-          Save Changes
-        </button>
-      </form>
+            <div>
+              <label className="block text-xs font-semibold text-slate-300 mb-1.5">Avatar Image URL</label>
+              <div className="relative">
+                <Image className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500" />
+                <input
+                  type="url"
+                  name="avatar"
+                  value={form.avatar}
+                  onChange={handleChange}
+                  placeholder="https://..."
+                  className="w-full bg-slate-900 border border-slate-800 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500 transition-colors"
+                />
+              </div>
+            </div>
+
+            <div className="pt-2 border-t border-slate-800 space-y-4">
+              <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block">
+                Social Profile Links
+              </span>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div className="relative">
+                  <Github className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" />
+                  <input
+                    type="url"
+                    name="github"
+                    value={form.github}
+                    onChange={handleChange}
+                    placeholder="GitHub URL"
+                    className="w-full bg-slate-900 border border-slate-800 rounded-xl pl-9 pr-3 py-2 text-xs text-white focus:outline-none focus:border-purple-500"
+                  />
+                </div>
+
+                <div className="relative">
+                  <Linkedin className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" />
+                  <input
+                    type="url"
+                    name="linkedin"
+                    value={form.linkedin}
+                    onChange={handleChange}
+                    placeholder="LinkedIn URL"
+                    className="w-full bg-slate-900 border border-slate-800 rounded-xl pl-9 pr-3 py-2 text-xs text-white focus:outline-none focus:border-purple-500"
+                  />
+                </div>
+
+                <div className="relative">
+                  <Twitter className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" />
+                  <input
+                    type="url"
+                    name="twitter"
+                    value={form.twitter}
+                    onChange={handleChange}
+                    placeholder="Twitter URL"
+                    className="w-full bg-slate-900 border border-slate-800 rounded-xl pl-9 pr-3 py-2 text-xs text-white focus:outline-none focus:border-purple-500"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-4 flex gap-3">
+              <button
+                type="button"
+                onClick={() => navigate("/profile")}
+                className="flex-1 py-3 px-4 rounded-xl font-semibold text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 transition-colors"
+              >
+                Cancel
+              </button>
+
+              <button
+                type="submit"
+                disabled={loading}
+                className="flex-1 py-3 px-4 rounded-xl font-bold text-xs bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white shadow-lg shadow-purple-600/25 transition-all"
+              >
+                {loading ? "Saving..." : "Save Changes"}
+              </button>
+            </div>
+          </form>
+        </div>
+      </main>
     </div>
   );
 }

@@ -1,127 +1,134 @@
-import React, { useState } from 'react'
-import DashBoard from '../components/DashBoard'
-import Header from '../components/Header';
-import { registerUser } from '../services/api'
-import { useNavigate } from 'react-router-dom'
+import React, { useState } from "react";
+import Header from "../components/Header";
+import { registerUser } from "../services/api";
+import { useNavigate, Link } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
+import { Sparkles, User, Mail, Lock, Building2 } from "lucide-react";
 
 function Register() {
-    const [loading,setLoading]=useState(false);
-    const [error, setError] = useState("");
-    const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
-    const handleSubmit = async (e) => {
-    e.preventDefault()
-    const formData = new FormData(e.target)
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
     setLoading(true);
-    setError("");
 
     try {
-      const res = await registerUser(formData);
-      console.log("Registered: ",res.data);
-      alert("User registered successfully")
-
-      // Redirect to login page
-      navigate("/login");
-
+      await registerUser(formData);
+      toast.success("Account created successfully! Redirecting to login...");
+      setTimeout(() => navigate("/login"), 1000);
     } catch (err) {
-      console.error(err.response?.data || err);
-      setError(err.response?.data?.message || "User with email or username already exists");
+      toast.error(err.response?.data?.message || "Registration failed. Try again.");
     } finally {
       setLoading(false);
     }
-  }
+  };
 
   return (
-    <div className='min-h-screen bg-gray-900 text-white'>
-      
-        <Header/>
+    <div className="min-h-screen bg-[#090D16] text-white">
+      <Toaster position="top-right" />
+      <Header />
 
-        {/* Centered Form */}
-      <div className="flex items-center justify-center h-[calc(100vh-4rem)] px-4 my-10">
-        <form
-          onSubmit={handleSubmit}
-          className="bg-white text-black rounded-lg shadow-lg p-8 w-full max-w-md space-y-6"
-        >
-          <h2 className="text-2xl font-bold text-center text-gray-800">Create an Account</h2>
-
-           {/* Error message */}
-          {error && (
-            <div className="text-red-600 text-sm text-center">
-              {error}
+      <div className="flex items-center justify-center min-h-[calc(100vh-4rem)] px-4 py-12">
+        <div className="bg-[#0F172A] border border-slate-800 rounded-3xl p-8 sm:p-10 w-full max-w-md shadow-2xl space-y-6">
+          <div className="text-center">
+            <div className="w-12 h-12 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center mx-auto mb-3 text-purple-400">
+              <Sparkles className="w-6 h-6" />
             </div>
-          )}
-
-          <div>
-            <label htmlFor="fullName" className="block mb-1 font-medium text-gray-700">
-              Full Name
-            </label>
-            <input
-              type="text"
-              id="fullName"
-              name="fullName"
-              required
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-400"
-            />
+            <h2 className="text-2xl font-bold text-white tracking-tight">Create StarkPrep Account</h2>
+            <p className="text-xs text-slate-400 mt-1">Start tracking your CP ratings & DSA journey</p>
           </div>
 
-          <div>
-            <label htmlFor="username" className="block mb-1 font-medium text-gray-700">
-              Username
-            </label>
-            <input
-              type="text"
-              id="username"
-              name="username"
-              required
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-400"
-            />
-          </div>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <label className="block text-xs font-semibold text-slate-300 mb-1.5">Full Name</label>
+              <div className="relative">
+                <User className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500" />
+                <input
+                  type="text"
+                  name="fullName"
+                  required
+                  placeholder="John Doe"
+                  className="w-full bg-slate-900 border border-slate-800 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-purple-500 transition-colors"
+                />
+              </div>
+            </div>
 
-          <div>
-            <label htmlFor="email" className="block mb-1 font-medium text-gray-700">
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              required
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-400"
-            />
-          </div>
+            <div>
+              <label className="block text-xs font-semibold text-slate-300 mb-1.5">Username</label>
+              <div className="relative">
+                <User className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500" />
+                <input
+                  type="text"
+                  name="username"
+                  required
+                  placeholder="john_dev"
+                  className="w-full bg-slate-900 border border-slate-800 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-purple-500 transition-colors"
+                />
+              </div>
+            </div>
 
-          <div>
-            <label htmlFor="password" className="block mb-1 font-medium text-gray-700">
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              required
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-400"
-            />
-          </div>
+            <div>
+              <label className="block text-xs font-semibold text-slate-300 mb-1.5">Email Address</label>
+              <div className="relative">
+                <Mail className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500" />
+                <input
+                  type="email"
+                  name="email"
+                  required
+                  placeholder="name@domain.com"
+                  className="w-full bg-slate-900 border border-slate-800 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-purple-500 transition-colors"
+                />
+              </div>
+            </div>
 
-          {/* Submit Button */}
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-amber-400 hover:bg-amber-500 text-black font-semibold py-2 rounded-md transition duration-200 disabled:opacity-60"
-          >
-            {loading ? "Registering..." : "Register"}
-          </button>
+            <div>
+              <label className="block text-xs font-semibold text-slate-300 mb-1.5">Password</label>
+              <div className="relative">
+                <Lock className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500" />
+                <input
+                  type="password"
+                  name="password"
+                  required
+                  placeholder="••••••••"
+                  className="w-full bg-slate-900 border border-slate-800 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-purple-500 transition-colors"
+                />
+              </div>
+            </div>
 
-          <p className="text-sm text-center text-gray-600">
-            Already have an account? <a href="/login" className="text-amber-600 hover:underline">Login</a>
+            <div>
+              <label className="block text-xs font-semibold text-slate-300 mb-1.5">College / Organization</label>
+              <div className="relative">
+                <Building2 className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500" />
+                <input
+                  type="text"
+                  name="collegeName"
+                  placeholder="e.g. MNNIT Allahabad"
+                  className="w-full bg-slate-900 border border-slate-800 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-purple-500 transition-colors"
+                />
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full py-3 px-4 rounded-xl font-bold text-sm bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white shadow-lg shadow-purple-600/25 transition-all disabled:opacity-50 mt-2"
+            >
+              {loading ? "Creating Account..." : "Create Account"}
+            </button>
+          </form>
+
+          <p className="text-center text-xs text-slate-500">
+            Already have an account?{" "}
+            <Link to="/login" className="text-purple-400 hover:underline font-semibold">
+              Sign in
+            </Link>
           </p>
-
-        </form>
-        
+        </div>
       </div>
-
     </div>
-  )
+  );
 }
 
-export default Register
+export default Register;
